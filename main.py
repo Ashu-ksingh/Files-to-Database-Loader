@@ -1,63 +1,58 @@
-# main.py
 import os
-import logging
-from etl.extract import read_csv, read_json
+import pandas as pd
+from sqlalchemy import create_engine
 from etl.transform import transform_customers, transform_sales
 from etl.load import create_table_if_not_exists, load_data
-from sqlalchemy import create_engine
 import json
 
-# ---------- Setup Logging ----------
-logging.basicConfig(
-    filename='etl_log.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+# -----------------------------
+# 1️ Database connection setup
+# -----------------------------
+db_config = {
+    "user": "etl_user",
+    "password": "ashu2909",
+    "host": "localhost",
+    "port": 5432,
+    "database": "etl_demo",
+    "dialect": "postgresql"
+}
 
-# ---------- Load DB Config ----------
-with open("config/db_config.json") as f:
-    db_config = json.load(f)
+# SQLAlchemy engine
+engine = create_engine(f"{db_config['dialect']}://{db_config['user']}:{db_config['password']}@"
+                       f"{db_config['host']}:{db_config['port']}/{db_config['database']}")
 
-DB_URL = f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
-engine = create_engine(DB_URL)
+# -----------------------------
+# 2️ Extract: Load files
+# -----------------------------
+data_folder = "data"
 
-# ---------- File Paths ----------
-DATA_DIR = "data"
-CUSTOMER_FILE = os.path.join(DATA_DIR, "customers.json")
-SALES_FILE = os.path.join(DATA_DIR, "sales_2023.csv")
+# Customers JSON
+customers_file = os.path.join(data_folder, "customers.json")
+with open(customers_file, "r") as f:
+    customers_df = pd.DataFrame(json.load(f))
+print(f"Loaded {len(customers_df)} customers")
 
-def run_etl():
-    try:
-        logging.info("ETL process started.")
+# Sales CSV
+sales_file = os.path.join(data_folder, "sales_2023.csv")
+sales_df = pd.read_csv(sales_file)
+print(f"Loaded {len(sales_df)} sales records")
 
-        # ---------- Extract ----------
-        logging.info(f"Reading file: {CUSTOMER_FILE}")
-        customers = read_json(CUSTOMER_FILE)
-        
-        logging.info(f"Reading file: {SALES_FILE}")
-        sales = read_csv(SALES_FILE)
+# -----------------------------
+# 3️ Transform
+# -----------------------------
+customers_transformed = transform_customers(customers_df)
+sales_transformed = transform_sales(sales_df)
+print("Data transformed successfully!")
 
-        # ---------- Transform ----------
-        logging.info("Transforming customer data")
-        customers_transformed = transform_customers(customers)
-        
-        logging.info("Transforming sales data")
-        sales_transformed = transform_sales(sales)
+# -----------------------------
+# 4️ Load
+# -----------------------------
+# Create tables if not exists
+create_table_if_not_exists(engine, "customers", customers_transformed)
+create_table_if_not_exists(engine, "sales", sales_transformed)
 
-        # ---------- Load ----------
-        logging.info("Creating and loading tables")
-        create_table_if_not_exists(engine, 'customers', customers_transformed)
-        load_data(engine, 'customers', customers_transformed)
+# Load data into tables
+load_data(engine, "customers", customers_transformed)
+load_data(engine, "sales", sales_transformed)
 
-        create_table_if_not_exists(engine, 'sales', sales_transformed)
-        load_data(engine, 'sales', sales_transformed)
-
-        logging.info("ETL process completed successfully.")
-        print("ETL completed successfully!")
-
-    except Exception as e:
-        logging.error(f"ETL failed: {e}")
-        print(f"ETL failed: {e}")
-
-if __name__ == "__main__":
-    run_etl()
+print("ETL process completed successfully!")

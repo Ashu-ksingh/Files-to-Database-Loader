@@ -1,0 +1,8 @@
+{
+    "user": "etl_user",
+    "password": "ashu2909",
+    "host": "localhost",
+    "port": 5432,
+    "database": "etl_demo",
+    "dialect": "postgresql"
+}

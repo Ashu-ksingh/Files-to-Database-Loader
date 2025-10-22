@@ -1,0 +1,13 @@
+2025-10-22 22:38:26,989 - INFO - ETL process started.
+2025-10-22 22:38:26,990 - INFO - Reading file: data\customers.json
+2025-10-22 22:38:26,994 - INFO - Reading file: data\sales_2023.csv
+2025-10-22 22:38:26,996 - INFO - Transforming customer data
+2025-10-22 22:38:27,001 - INFO - Transforming sales data
+2025-10-22 22:38:27,001 - ERROR - ETL failed: name 'pd' is not defined
+2025-10-22 22:39:41,530 - INFO - ETL process started.
+2025-10-22 22:39:41,530 - INFO - Reading file: data\customers.json
+2025-10-22 22:39:41,537 - INFO - Reading file: data\sales_2023.csv
+2025-10-22 22:39:41,539 - INFO - Transforming customer data
+2025-10-22 22:39:41,540 - INFO - Transforming sales data
+2025-10-22 22:39:41,543 - INFO - Creating and loading tables
+2025-10-22 22:39:41,638 - INFO - ETL process completed successfully.

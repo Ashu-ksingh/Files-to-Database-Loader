@@ -1,5 +1,7 @@
 # Files-to-Database-Loader (Python + PostgreSQL)
-A simple **ETL pipeline** that reads CSV and JSON files, transforms the data, and loads it into PostgreSQL. Designed to showcase **Python, Pandas, SQL, and ETL skills** for data engineering roles.
+This project demonstrates a complete ETL (Extract, Transform, Load) pipeline using Python and PostgreSQL. It extracts data from CSV and JSON files, performs transformations, and loads the cleaned data into a PostgreSQL database.
+
+This project is designed for resume and portfolio purposes, showcasing practical data engineering skills including data cleaning, transformation, and database operations.
 
 ---
 

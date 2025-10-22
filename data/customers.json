@@ -1,0 +1,44 @@
+[
+  {
+    "customer_id": 100,
+    "name": "Anoop Kumar",
+    "email": "anoop@example.com",
+    "joined": "2022-03-01"
+  },
+  {
+    "customer_id": 101,
+    "name": "Priya Singh",
+    "email": "priya@example.com",
+    "joined": "2023-01-10"
+  },
+  {
+    "customer_id": 102,
+    "name": "Rohit Sharma",
+    "email": "rohit@example.com",
+    "joined": "2021-07-15"
+  },
+  {
+    "customer_id": 103,
+    "name": "Neha Verma",
+    "email": "neha@example.com",
+    "joined": "2022-11-20"
+  },
+  {
+    "customer_id": 104,
+    "name": "Suresh Patil",
+    "email": "suresh@example.com",
+    "joined": "2023-02-05"
+  },
+  {
+    "customer_id": 105,
+    "name": "Kavita Joshi",
+    "email": "kavita@example.com",
+    "joined": "2022-06-18"
+  },
+  {
+    "customer_id": 106,
+    "name": "Vikram Singh",
+    "email": "vikram@example.com",
+    "joined": "2021-12-12"
+  }
+]

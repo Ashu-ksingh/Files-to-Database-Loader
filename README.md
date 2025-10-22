@@ -50,4 +50,4 @@ files_to_db_loader/
 
 
 Author:
-Ashutosh Kumar Singh – Aspiring Data Engineer
+Ashutosh Kumar Singh – Data Engineer
